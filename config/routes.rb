@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  post 'twilio/voice' => 'twilio#voice'
-  root to: "sessions#new"
-  get '/login', to: "home#show"
+  root                 to: "sessions#new"
+  post 'twilio/voice', to: 'twilio#voice'
+  get '/twilio/text',  to: 'twilio#text'
+  get '/login',        to: "home#show"
 end
