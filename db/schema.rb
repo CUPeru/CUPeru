@@ -11,9 +11,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150804215342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "agents", force: :cascade do |t|
+    t.string   "phone_number"
+    t.integer  "health_post_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "agents", ["health_post_id"], name: "index_agents_on_health_post_id", using: :btree
+
+  create_table "health_centers", force: :cascade do |t|
+    t.string   "phone_number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "health_posts", force: :cascade do |t|
+    t.string   "phone_number"
+    t.integer  "health_center_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "health_posts", ["health_center_id"], name: "index_health_posts_on_health_center_id", using: :btree
+
+  create_table "tecnicos", force: :cascade do |t|
+    t.string   "phone_number"
+    t.integer  "health_post_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "tecnicos", ["health_post_id"], name: "index_tecnicos_on_health_post_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "agents", "health_posts"
+  add_foreign_key "health_posts", "health_centers"
+  add_foreign_key "tecnicos", "health_posts"
 end
