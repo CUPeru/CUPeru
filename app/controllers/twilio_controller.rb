@@ -10,7 +10,8 @@ class TwilioController < ApplicationController
     @account = @client.account
     @messages = @account.messages.list
     message = ""
-    @messages.map {|m| message + "\n" + m.body}
+    @messages.map {|m| message = message + "\n" + m.body}
+    byebug
     response = Twilio::TwiML::Response.new do |r|
       r.Message message
     end
