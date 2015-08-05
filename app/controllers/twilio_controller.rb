@@ -8,9 +8,13 @@ class TwilioController < ApplicationController
 
   def text
     @account = @client.account
-    @messages = @account.messages.list
+    user_messages = @account.messages.list.map {|m| m if m.from != "+12674227124"}
+    sorted_messages = user_messages.compact.sort_by {|m| m.date_created}
+    your_message = sorted_messages.last
+    final = "You just sent: " + your_message.body + ", and your phone number is: " + your_message.from
+
     response = Twilio::TwiML::Response.new do |r|
-      r.Message @messages.map {|m| m.body }.to_s
+      r.Message final
     end
     render_twiml response
   end
