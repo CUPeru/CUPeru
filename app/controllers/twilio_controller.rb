@@ -9,11 +9,8 @@ class TwilioController < ApplicationController
   def text
     @account = @client.account
     @messages = @account.messages.list
-    message = ""
-    @messages.map {|m| message = message + "\n" + m.body}
-    byebug
     response = Twilio::TwiML::Response.new do |r|
-      r.Message message
+      r.Message @messages.map {|m| m.body }.to_s
     end
     render_twiml response
   end
