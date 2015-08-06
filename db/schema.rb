@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805171549) do
+ActiveRecord::Schema.define(version: 20150806154801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(version: 20150805171549) do
   end
 
   add_index "health_posts", ["health_center_id"], name: "index_health_posts_on_health_center_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "body"
+    t.string   "to"
+    t.string   "from"
+    t.string   "date_sent"
+    t.string   "keyword"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tecnicos", force: :cascade do |t|
     t.string   "phone_number"
