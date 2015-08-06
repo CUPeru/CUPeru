@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'date'
 
 class TwilioController < ApplicationController
   include Webhookable
@@ -8,7 +9,7 @@ class TwilioController < ApplicationController
 
   def text
     user_messages = @account.messages.list.map { |sms| sms if sms.from != "+12674227124"}
-    your_message = user_messages.compact.sort_by { |sms| sms.date_created }.last
+    your_message = user_messages.compact.sort_by { |sms| Date.parese(sms.date_created) }.last
 
     final = "You just sent: " + your_message.body + ", and your phone number is: " + your_message.from
 
