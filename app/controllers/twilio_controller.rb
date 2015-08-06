@@ -21,6 +21,15 @@ class TwilioController < ApplicationController
     render_twiml response
   end
 
+  def send_text(to, body)
+    byebug
+    @account.messages.create(
+      from: "+12674227124",
+      to: to,
+      body: body
+    )
+  end
+
   private
 
   def create_client
