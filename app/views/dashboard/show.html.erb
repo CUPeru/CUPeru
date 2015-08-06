@@ -58,7 +58,7 @@
             <i class='fa fa-4x fa-diamond wow bounceIn text-primary'></i>
             <h3>Stream</h3>
             <p class='text-muted'>
-            <% @messages.each do |message| %>
+            <% @messages.reverse.each do |message| %>
               <div class='text'>
                 <%= message.from %>:<br>
                 <%= message.body %>
