@@ -28,9 +28,9 @@ class TwilioController < ApplicationController
   end
 
   def save_message(message)
-    Message.create(body: message.body
-                   to: message.to
-                   from: message.from
+    Message.create(body: message.body,
+                   to: message.to,
+                   from: message.from,
                    date_sent: message.date_created)
   end
 end
