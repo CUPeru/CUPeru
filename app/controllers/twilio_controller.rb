@@ -21,13 +21,13 @@ class TwilioController < ApplicationController
     render_twiml response
   end
 
-  def send_text(to, body)
-    byebug
+  def send_text
     @account.messages.create(
       from: "+12674227124",
-      to: to,
-      body: body
+      to: params[:to],
+      body: params[:body]
     )
+    redirect_to '/dashboard'
   end
 
   private
