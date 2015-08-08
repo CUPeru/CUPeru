@@ -10,11 +10,20 @@ class TwilioController < ApplicationController
   def text
     user_messages = @account.messages.list.map { |sms| sms if sms.from != "+12674227124"}
     your_message = user_messages.compact.sort_by { |sms| Date.parse(sms.date_created) }.last
-
     final = "You just sent: " + your_message.body + ", and your phone number is: " + your_message.from
 
     save_message(your_message)
-
+    # TODO:
+    # if no tecnico or agent exists with this phone number, parse the text for a code/password (eg 943623) w/PORO
+    # if the text has the correct code, create a new agent if its an agent code and tecnico is its a tecnico code w/PORO
+    # if an agent/tecnico exists already, send the message to a PORO for parsing/routing.
+    # this PORO will have methods for each keyword, as well as a route to a PORO for the medical API
+    # also - only me, michael, allison, and CUPeru can login through twitter
+    #
+    # OPTIIONAL: translate all outgoing texts to spanish
+    # d3 graph of texts
+    # calculate total twilio cost and show balance
+    # profile pages for users, messages, etc (linked to on admin dashboard)
     response = Twilio::TwiML::Response.new do |r|
       r.Message final
     end
@@ -38,10 +47,12 @@ class TwilioController < ApplicationController
   end
 
   def save_message(message)
-    Message.create(body: message.body,
-                   to: message.to,
-                   from: message.from,
-                   date_sent: message.date_created)
+    Message.create(
+      body: message.body,
+      to: message.to,
+      from: message.from,
+      date_sent: message.date_created
+    )
   end
 end
 
