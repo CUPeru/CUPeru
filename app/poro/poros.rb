@@ -1,1 +1,1 @@
-require relative 'sms_registration'
+require_relative 'sms_registration'
