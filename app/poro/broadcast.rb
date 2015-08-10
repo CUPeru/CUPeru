@@ -5,7 +5,7 @@ class Broadcast
 
   def alert(message)
     health_center = HealthCenter.find_by(phone_number: message.from)
-    unless health_center.empty?
+    if health_center
       create_client
       HealthPost.where(health_center_id: health_center.id).map do |post|
         post.agents.each do |agent|
