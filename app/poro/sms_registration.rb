@@ -1,9 +1,9 @@
 class Registrator
   def initialize(message)
-    parse_message(message)
+    register_by_number(message)
   end
 
-  def parse_message(message)
+  def register_by_number(message)
     if Agent.where(phone_number: message.from).empty? && message.body.include?("agent123")
       Agent.create!(phone_number: message.from)
     end
