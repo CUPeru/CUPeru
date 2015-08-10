@@ -1,6 +1,6 @@
 require 'twilio-ruby'
 require 'date'
-require '../poro/poros.rb'
+require_relative '../poro/poros.rb'
 
 class TwilioController < ApplicationController
   include Webhookable
