@@ -12,11 +12,11 @@ class TwilioController < ApplicationController
     your_message = user_messages.compact.sort_by { |sms| Date.parse(sms.date_created) }.last
     final = "You just sent: " + your_message.body + ", and your phone number is: " + your_message.from
 
-    if Agent.find_all(phone_number: your_message.from) == nil && your_message.body.include?("agent123")
+    if Agent.where(phone_number: your_message.from).empty? && your_message.body.include?("agent123")
       Agent.create!(phone_number: your_message.from)
     end
 
-    if Tecnico.find_all(phone_number: your_message.from) == nil && your_message.body.include?("tecnico123")
+    if Tecnico.where(phone_number: your_message.from).empty? && your_message.body.include?("tecnico123")
       Tecnico.create!(phone_number: your_message.from)
     end
 
