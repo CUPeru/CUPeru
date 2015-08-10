@@ -13,6 +13,7 @@ class TwilioController < ApplicationController
     your_message = user_messages.compact.group_by { |sms| Date.parse(sms.date_created) }.first[1].first
     final = "You just sent: #{your_message.body}, and your phone number is: #{your_message.from}"
     Registrator.new(your_message)
+    Parser.new(your_message)
     save_message(your_message)
     # TODO:
     # if an agent/tecnico exists already, send the message to a PORO for parsing/routing.
