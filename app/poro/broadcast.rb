@@ -4,10 +4,10 @@ class Broadcast
   end
 
   def alert(message)
-    health_center = HealthCenter.where(phone_number: message.from)
+    health_center = HealthCenter.find_by(phone_number: message.from)
     unless health_center.empty?
       create_client
-      health_center.first.health_posts.map do |post|
+      HealthPost.where(health_center_id: health_center.id).map do |post|
         post.agents.each do |agent|
           @account.messages.create(
             from: "+12674227124",
