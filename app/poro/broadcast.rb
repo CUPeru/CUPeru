@@ -14,7 +14,6 @@ class Broadcast
             to: agent.phone_number,
             body: mmessage
           )
-          redirect_to '/dashboard'
         end
       end
     end
