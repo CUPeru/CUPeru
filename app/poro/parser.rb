@@ -8,7 +8,7 @@ class Parser
   end
 
   def parse_message
-    text = message.body.downcase
+    text = @message.body.downcase
     case text
     when text.include?("broadcast")
       Broadcast.new(@message)
