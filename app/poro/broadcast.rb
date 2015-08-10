@@ -3,7 +3,7 @@ class Broadcast
     alert(message)
   end
 
-  def alert
+  def alert(message)
     health_center = HealthCenter.where(phone_number: message.from)
     unless health_center.empty?
       create_client
@@ -12,7 +12,7 @@ class Broadcast
           @account.messages.create(
             from: "+12674227124",
             to: agent.phone_number,
-            body: @message
+            body: mmessage
           )
           redirect_to '/dashboard'
         end
