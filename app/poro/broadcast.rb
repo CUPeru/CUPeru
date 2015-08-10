@@ -12,7 +12,7 @@ class Broadcast
           @account.messages.create(
             from: "+12674227124",
             to: agent.phone_number,
-            body: mmessage
+            body: message
           )
         end
       end

@@ -16,8 +16,6 @@ class TwilioController < ApplicationController
     Parser.new(your_message)
     save_message(your_message)
     # TODO:
-    # if an agent/tecnico exists already, send the message to a PORO for parsing/routing.
-    # this PORO will have methods for each keyword, as well as a route to a PORO for the medical API
     # also - only me, michael, allison, and CUPeru can login through twitter
     #
     # OPTIIONAL: translate all outgoing texts to spanish
