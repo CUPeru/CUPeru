@@ -10,7 +10,7 @@ class Broadcast
       health_center.first.health_posts.map do |post|
         post.agents.each do |agent|
           @account.messages.create(
-            from: health_center.phone_number,
+            from: "+12674227124",
             to: agent.phone_number,
             body: @message
           )
