@@ -12,10 +12,16 @@ class TwilioController < ApplicationController
     your_message = user_messages.compact.sort_by { |sms| Date.parse(sms.date_created) }.last
     final = "You just sent: " + your_message.body + ", and your phone number is: " + your_message.from
 
+    if Agent.find_all(phone_number: your_message.from) == nil && your_message.body.include?("agent123")
+      Agent.create!(phone_number: your_message.from)
+    end
+
+    if Tecnico.find_all(phone_number: your_message.from) == nil && your_message.body.include?("tecnico123")
+      Tecnico.create!(phone_number: your_message.from)
+    end
+
     save_message(your_message)
     # TODO:
-    # if no tecnico or agent exists with this phone number, parse the text for a code/password (eg 943623) w/PORO
-    # if the text has the correct code, create a new agent if its an agent code and tecnico is its a tecnico code w/PORO
     # if an agent/tecnico exists already, send the message to a PORO for parsing/routing.
     # this PORO will have methods for each keyword, as well as a route to a PORO for the medical API
     # also - only me, michael, allison, and CUPeru can login through twitter
