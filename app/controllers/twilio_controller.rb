@@ -1,5 +1,6 @@
 require 'twilio-ruby'
 require 'date'
+require '../poro/poros.rb'
 
 class TwilioController < ApplicationController
   include Webhookable
@@ -8,18 +9,12 @@ class TwilioController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def text
-    user_messages = @account.messages.list.map { |sms| sms if sms.from != "+12674227124"}
+    user_messages = @account.messages.list.reject { |sms| sms.from == "+12674227124"}
+    byebug
+
     your_message = user_messages.compact.sort_by { |sms| Date.parse(sms.date_created) }.last
-    final = "You just sent: " + your_message.body + ", and your phone number is: " + your_message.from
-
-    if Agent.where(phone_number: your_message.from).empty? && your_message.body.include?("agent123")
-      Agent.create!(phone_number: your_message.from)
-    end
-
-    if Tecnico.where(phone_number: your_message.from).empty? && your_message.body.include?("tecnico123")
-      Tecnico.create!(phone_number: your_message.from)
-    end
-
+    final = "You just sent: #{your_message.body}, and your phone number is: #{your_message.from}"
+    Registrator.new(your_message)
     save_message(your_message)
     # TODO:
     # if an agent/tecnico exists already, send the message to a PORO for parsing/routing.
