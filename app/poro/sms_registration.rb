@@ -11,5 +11,9 @@ class Registrator
     if Tecnico.where(phone_number: message.from).empty? && message.body.include?("tecnico123")
       Tecnico.create!(phone_number: message.from)
     end
+
+    if HealthCenter.where(phone_number: message.from).empty? && message.body.include?("health123")
+      HealthCenter.create!(phone_number: message.from)
+    end
   end
 end

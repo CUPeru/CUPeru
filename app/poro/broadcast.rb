@@ -4,16 +4,18 @@ class Broadcast
   end
 
   def alert
-    health_post = HealthPost.where(phone_number: message.from)
-    unless health_post.empty?
+    health_center = HealthCenter.where(phone_number: message.from)
+    unless health_center.empty?
       create_client
-      health_post.first.agents.each do |agent|
-        @account.messages.create(
-          from: health_post.phone_number,
-          to: agent.phone_number,
-          body: @message
-        )
-        redirect_to '/dashboard'
+      health_center.first.health_posts.map do |post|
+        post.agents.each do |agent|
+          @account.messages.create(
+            from: health_center.phone_number,
+            to: agent.phone_number,
+            body: @message
+          )
+          redirect_to '/dashboard'
+        end
       end
     end
   end
