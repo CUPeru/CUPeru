@@ -10,7 +10,7 @@ class TwilioController < ApplicationController
 
   def text
     user_messages = @account.messages.list.reject { |sms| sms.from == "+12674227124"}
-    your_message = user_messages.compact.sort_by { |sms| Date.parse(sms.date_created) }.last
+    your_message = user_messages.compact.group_by { |sms| Date.parse(sms.date_created) }.first[1].first
     final = "You just sent: #{your_message.body}, and your phone number is: #{your_message.from}"
     Registrator.new(your_message)
     save_message(your_message)
