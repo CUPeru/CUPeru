@@ -1,39 +1,37 @@
-require 'ostruct'
 require 'rails_helper'
 require_relative '../../app/poro/parser.rb'
 
 describe Parser do
   it 'parses broadcasts' do
-    message = double()
-    message.stub(:body).and_return("broadcast")
-    message.stub(:from).and_return("1234567890")
-    parser = Parser.new(message).parse_message
+    twilio_message = find_twilio_message("broadcast")
+    create_db_message = Message.create(body: twilio_message.body)
+    parser = Parser.new.parse_message(twilio_message)
 
-    expect(parser.class).to eq(Broadcast)
-  end
-
-  xit 'parses emergencies' do
-    message = double()
-    message.stub(:body).and_return("emergency")
-    parser = Parser.new(message).parse_message
-
-    expect(parser.class).to eq(Emergency)
+    expect(find_db_message(twilio_message).keyword).to eq("Broadcast")
   end
 
   it 'parses symptoms' do
-    message = double()
-    message.stub(:body).and_return("symptoms")
-    parser = Parser.new(message).parse_message
+    twilio_message = find_twilio_message("symptoms")
+    create_db_message = Message.create(body: twilio_message.body)
+    parser = Parser.new.parse_message(twilio_message)
 
-    expect(parser.class).to eq(Symptom)
+    expect(find_db_message(twilio_message).keyword).to eq("Symptom")
   end
 
   it 'parses unknown commands' do
-    message = double()
-    message.stub(:body).and_return("this is a weird text")
-    message.stub(:from).and_return("1234567890")
-    parser = Parser.new(message).parse_message
+    twilio_message = find_twilio_message("agent")
+    create_db_message = Message.create(body: twilio_message.body)
+    parser = Parser.new.parse_message(twilio_message)
 
-    expect(parser).to eq("I dunno what to do with this message")
+    expect(find_db_message(twilio_message).keyword).to eq(nil)
+  end
+
+  def find_twilio_message(keyword)
+    @client ||= Twilio::REST::Client.new ENV["ACCOUNT_SID"], ENV["AUTH_TOKEN"]
+    @client.account.messages.list.select {|m| m if m.body.include?(keyword)}.first
+  end
+
+  def find_db_message(twilio_message)
+    Message.find_by(body: twilio_message.body)
   end
 end
