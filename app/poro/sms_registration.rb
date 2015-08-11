@@ -1,21 +1,18 @@
 class Registrator
   def register_by_number(message)
-    if message.body.downcase.include?("register")
-      words = message.body.split(" ")
-      name = words[1]
-      message_code = words[2]
-      health_post = HealthPost.find_by(code: message_code)
+    words = message.body.split(" ")
+    type, name, code = words[1], words[2], words[3]
+    health_post = HealthPost.find_by(code: code)
+    health_center = HealthCenter.find_by(code: code)
 
-      if Agent.where(phone_number: message.from).empty? && message.body.include?("agent")
-        health_post.agents.create!(phone_number: message.from, name: name)
-      elsif Tecnico.where(phone_number: message.from).empty? && message.body.include?("tecnico")
-        health_post.tecnicos.create!(phone_number: message.from, name: name)
-      elsif HealthPost.where(phone_number: message.from).empty? && message.body.include("post")
-        health_center = HealthCenter.find_by(code: message_code)
-        health_center.health_posts.create!(phone_number: message.from)
-      else
-        "Sorry, can't register that number"
-      end
+    if Agent.where(phone_number: message.from).empty? && type == "agent"
+      health_post.agents.create!(phone_number: message.from, name: name)
+    elsif Tecnico.where(phone_number: message.from).empty? && type == "tecnico"
+      health_post.tecnicos.create!(phone_number: message.from, name: name)
+    elsif HealthPost.where(phone_number: message.from).empty? && type == "post"
+      health_center.health_posts.create!(phone_number: message.from)
+    else
+      "Sorry, can't register that number"
     end
   end
 end
