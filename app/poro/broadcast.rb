@@ -26,6 +26,6 @@ class Broadcast
   end
 
   def agents
-    HealthPost.where(health_center_id: @health_center.id).map { |post| post.agents }
+    HealthPost.where(health_center_id: @health_center.id).map { |post| post.agents }.first
   end
 end
