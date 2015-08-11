@@ -9,27 +9,9 @@ class TwilioController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def text
-    user_messages = @account.messages.list.reject { |sms| sms.from == "+12674227124"}
-    your_message = user_messages.compact.group_by { |sms| Date.parse(sms.date_created) }.first[1].first
+    router = MessageHandler.new
+    router.route_message(your_message)
     final = "You just sent: #{your_message.body}, and your phone number is: #{your_message.from}"
-    Registrator.new(your_message)
-    Parser.new(your_message)
-    save_message(your_message)
-    # TODO:
-    # when message is parsed, set keyword in conditional
-    # also - only me, michael, allison, and CUPeru can login through twitter
-    #
-    # user profile page
-    # autoforwarding
-    # web scraping sypmtoms
-    #
-    # OPTIIONAL:
-    # change login to admin login
-    # add more info on homepage
-    # translate all outgoing texts to spanish
-    # d3 graph of texts
-    # calculate total twilio cost and show balance
-    # profile pages for users, messages, etc (linked to on admin dashboard)
     response = Twilio::TwiML::Response.new do |r|
       r.Message final
     end
@@ -47,19 +29,29 @@ class TwilioController < ApplicationController
 
   private
 
+  def your_message
+    user_messages = @account.messages.list.reject { |sms| sms.from == "+12674227124"}
+    user_messages.compact.group_by { |sms| Date.parse(sms.date_created) }.first[1].first
+  end
+
   def create_client
     @client = Twilio::REST::Client.new ENV["ACCOUNT_SID"], ENV["AUTH_TOKEN"]
     @account = @client.account
   end
-
-  def save_message(message)
-    Message.create(
-      body: message.body,
-      to: message.to,
-      from: message.from,
-      date_sent: message.date_created
-    )
-  end
 end
 
-
+    # TODO:
+    # when message is parsed, set keyword in conditional
+    # also - only me, michael, allison, and CUPeru can login through twitter
+    #
+    # user profile page
+    # autoforwarding
+    # web scraping sypmtoms
+    #
+    # OPTIIONAL:
+    # change login to admin login
+    # add more info on homepage
+    # translate all outgoing texts to spanish
+    # d3 graph of texts
+    # calculate total twilio cost and show balance
+    # profile pages for users, messages, etc (linked to on admin dashboard)
