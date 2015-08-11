@@ -27,8 +27,8 @@ describe Broadcast do
     broadcast.instance_variable_set("@health_center", health_center)
     agents = broadcast.send(:agents)
 
-    expect(agents.first.first.class).to eq(Agent)
-    expect(agents.first.first.phone_number).to eq("+12154106125")
+    expect(agents.first.class).to eq(Agent)
+    expect(agents.first.phone_number).to eq("+12154106125")
   end
 end
 
