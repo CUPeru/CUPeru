@@ -1,5 +1,6 @@
 require_relative 'emergency'
 require_relative 'broadcast'
+require_relative 'symptom'
 
 class Parser
   def initialize(message)
@@ -9,7 +10,7 @@ class Parser
 
   def parse_message
     text = @message.body.downcase
-    if  text.include?("broadcast")
+    if text.include?("broadcast")
       Broadcast.new(@message)
     elsif text.include?("emergency")
       Emergency.new(@message)
