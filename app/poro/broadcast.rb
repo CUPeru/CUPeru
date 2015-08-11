@@ -1,20 +1,15 @@
 class Broadcast
-  def initialize(message)
-    alert(message)
-  end
+  attr_reader :health_center
 
   def alert(message)
-    health_center = HealthCenter.find_by(phone_number: message.from)
-    if health_center
+    if find_health_center_by_message(message)
       create_client
-      HealthPost.where(health_center_id: health_center.id).map do |post|
-        post.agents.each do |agent|
+      agents.each do |agent|
           @account.messages.create(
             from: "+12674227124",
             to: agent.phone_number,
             body: message.body
           )
-        end
       end
     end
   end
@@ -22,7 +17,15 @@ class Broadcast
   private
 
   def create_client
-    @client = Twilio::REST::Client.new ENV["ACCOUNT_SID"], ENV["AUTH_TOKEN"]
+    @client ||= Twilio::REST::Client.new ENV["ACCOUNT_SID"], ENV["AUTH_TOKEN"]
     @account = @client.account
+  end
+
+  def find_health_center_by_message(message)
+    @health_center = HealthCenter.find_by(phone_number: message.from)
+  end
+
+  def agents
+    HealthPost.where(health_center_id: @health_center.id).map { |post| post.agents }
   end
 end
