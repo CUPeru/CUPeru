@@ -16,9 +16,17 @@ class TwilioController < ApplicationController
     Parser.new(your_message)
     save_message(your_message)
     # TODO:
+    # when message is parsed, set keyword in conditional
     # also - only me, michael, allison, and CUPeru can login through twitter
     #
-    # OPTIIONAL: translate all outgoing texts to spanish
+    # user profile page
+    # autoforwarding
+    # web scraping sypmtoms
+    #
+    # OPTIIONAL:
+    # change login to admin login
+    # add more info on homepage
+    # translate all outgoing texts to spanish
     # d3 graph of texts
     # calculate total twilio cost and show balance
     # profile pages for users, messages, etc (linked to on admin dashboard)
