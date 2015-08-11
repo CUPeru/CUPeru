@@ -3,11 +3,13 @@ require_relative '../../app/poro/sms_registration.rb'
 
 describe Registrator do
   it 'registers agents' do
+    health_post = HealthPost.create
+    health_post.update_attributes(code: "1234")
     expect(Agent.count).to eq(0)
 
     message = double()
     message.stub(:from).and_return("1234567890")
-    message.stub(:body).and_return("agent123")
+    message.stub(:body).and_return("register jose 1234 agent")
 
     agent = Registrator.new.register_by_number(message)
 
@@ -16,11 +18,13 @@ describe Registrator do
   end
 
   it 'registers tecnicos' do
-    expect(Agent.count).to eq(0)
+    health_post = HealthPost.create
+    health_post.update_attributes(code: "1234")
+    expect(Tecnico.count).to eq(0)
 
     message = double()
     message.stub(:from).and_return("1234567890")
-    message.stub(:body).and_return("tecnico123")
+    message.stub(:body).and_return("register juan 1234 tecnico")
 
     tecnico = Registrator.new.register_by_number(message)
 
