@@ -1,10 +1,5 @@
 class Registrator
-  def initialize(message)
-    register_by_number(message)
-  end
-
   def register_by_number(message)
-    byebug
     if Agent.where(phone_number: message.from).empty? && message.body.include?("agent123")
       Agent.create!(phone_number: message.from)
     elsif Tecnico.where(phone_number: message.from).empty? && message.body.include?("tecnico123")
