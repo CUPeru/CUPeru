@@ -1,9 +1,5 @@
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CUPeru</title>
     <link rel="stylesheet" href="assets/bootstrap.min.css" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
@@ -13,42 +9,8 @@
   </head>
 
   <body id="page-top">
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand page-scroll" href="#page-top">Comunidades Unidas Peru</a>
-        </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a class="page-scroll" href="#about">About</a>
-            </li>
-            <li>
-              <a class="page-scroll" href="https://github.com/levthedev/cuperu">GitHub</a>
-            </li>
-            <li>
-              <a class="page-scroll" href="http://cuperu.org">CUPeru</a>
-            </li>
-            <li>
-              <a class="page-scroll" href="http://lev.io">Contact</a>
-            </li>
-            <% if current_user %>
-              <li>
-                <%= link_to "Logout", logout_path %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </nav>
+<%= render partial: "/partials/navbar" %>
 
     <header>
       <div class="header-content">
@@ -87,28 +49,24 @@
         <div class="row">
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box">
-              <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
               <h3>Emergency Broadcasts</h3>
               <p class="text-muted">Send emergency texts to 50,000 rural villagers, instantly.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box">
-              <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
               <h3>Nighttime Forwarding</h3>
               <p class="text-muted">Auto forward texts to on-call doctors</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box">
-              <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
               <h3>Medical Information</h3>
               <p class="text-muted">Allow villagers to get disease diagnoses and prognoses.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box">
-              <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
               <h3>Data Collection</h3>
               <p class="text-muted">Measure the frequency and ways villagers use this platform.</p>
             </div>
