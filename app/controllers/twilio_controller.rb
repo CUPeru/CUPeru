@@ -9,8 +9,7 @@ class TwilioController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def text
-    router = MessageHandler.new
-    router.route_message(your_message)
+    MessageHandler.new.route_message(your_message)
     final = "You just sent: #{your_message.body}, and your phone number is: #{your_message.from}"
     response = Twilio::TwiML::Response.new do |r|
       r.Message final
@@ -41,11 +40,7 @@ class TwilioController < ApplicationController
 end
 
     # TODO:
-    # when message is parsed, set keyword in conditional
     # also - only me, michael, allison, and CUPeru can login through twitter
-    #
-    # user profile page
-    # autoforwarding
     # web scraping sypmtoms
     #
     # OPTIIONAL:
@@ -54,4 +49,4 @@ end
     # translate all outgoing texts to spanish
     # d3 graph of texts
     # calculate total twilio cost and show balance
-    # profile pages for users, messages, etc (linked to on admin dashboard)
+    # autoforwarding
