@@ -8,25 +8,7 @@
     <link rel='stylesheet' href='assets/creative.css' type='text/css'>
   </head>
 
-  <nav id='mainNav' class='navbar navbar-default navbar-fixed-top'>
-    <div class='navbar-header'>
-      <a class='navbar-brand page-scroll' href='/'>Comunidades Unidas Peru</a>
-    </div>
-    <ul class='nav navbar-nav navbar-right'>
-      <li>
-        <a class='page-scroll' href='https://github.com/levthedev/cuperu'>GitHub</a>
-      </li>
-      <li>
-        <a class='page-scroll' href='http://cuperu.org'>CUPeru</a>
-      </li>
-      <li>
-        <a class='page-scroll' href='http://lev.io'>Contact</a>
-      </li>
-      <li>
-        <%= link_to 'Logout', logout_path %>
-      </li>
-    </ul>
-  </nav>
+<%= render partial: "/partials/navbar" %>
 
   <section>
     <div class='row'>
@@ -41,7 +23,7 @@
           <p class='text-muted'>
           <% @messages.reverse.each do |message| %>
             <div class='text'>
-              <%= message.from %>:<br>
+              <%= link_to message.from, find_healthcare_worker(message) %>:<br>
               <%= message.body %>
             </div>
           <% end %>
@@ -50,12 +32,12 @@
         <div class='col-lg-4 col-md-6 text-center stats'>
           <h3>Stats</h3>
           <div class='text-muted'>
-            Total Messages Sent: <%= @messages.count %><br><br><hr>
-            Emergencies: <%= @messages.where(keyword: 'emergency').count %><br><br><hr>
-            Broadcasts: <%= @messages.where(keyword: 'broadcast').count %><br><br><hr>
-            API Calls: <%= @messages.where(keyword: 'API').count %> <br><br><hr>
-            Agents: <%= Agent.all.count %> <br><br><hr>
-            Tecnicos: <%= Tecnico.all.count %> <br><br><hr>
+            Total Messages Sent: <%= @messages.count                                            %><br><br><hr>
+            Emergencies:         <%= @messages.select {|m| m if m.keyword == 'Emergency'}.count %><br><br><hr>
+            Broadcasts:          <%= @messages.select {|m| m if m.keyword == 'Broadcast'}.count %><br><br><hr>
+            API Calls:           <%= @messages.select {|m| m if m.keyword == 'API'}.count       %> <br><br><hr>
+            Agents:              <%= Agent.all.count                                            %> <br><br><hr>
+            Tecnicos:            <%= Tecnico.all.count                                          %> <br><br><hr>
           </div>
         </div>
         <div class='col-lg-4 col-md-6 text-center'>
