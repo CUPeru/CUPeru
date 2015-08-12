@@ -1,6 +1,10 @@
 class Broadcast
   attr_reader :health_center
 
+  def initialize(message = Message.new)
+    alert(message)
+  end
+
   def alert(message)
     if find_health_center_by_message(message)
       create_client
