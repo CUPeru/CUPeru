@@ -1,0 +1,14 @@
+<nav id='mainNav' class='navbar navbar-default navbar-fixed-top'>
+  <div class='navbar-header'>
+    <a class='navbar-brand page-scroll' href='/'>Comunidades Unidas Peru</a>
+  </div>
+  <ul class='nav navbar-nav navbar-right'>
+    <li><a class='page-scroll' href='https://github.com/levthedev/cuperu'>GitHub</a></li>
+    <li><a class='page-scroll' href='http://cuperu.org'>CUPeru</a></li>
+    <li><a class='page-scroll' href='http://lev.io'>Contact</a></li>
+    <% if current_user %>
+      <li><%= link_to 'Logout', logout_path %></li>
+    <% end %>
+  </ul>
+</nav>
+
