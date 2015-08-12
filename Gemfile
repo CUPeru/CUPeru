@@ -17,9 +17,7 @@ gem "twitter-bootstrap-rails"
 gem "rails_12factor"
 gem 'figaro'
 gem "skylight"
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem "twitter-bootstrap-rails"
 
 group :development, :test do
   gem 'rspec-rails'
