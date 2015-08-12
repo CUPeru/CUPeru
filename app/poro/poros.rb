@@ -13,7 +13,6 @@ class MessageHandler
       body: message.body,
       to: message.to,
       from: message.from,
-      date_sent: message.date_created
-    )
+      date_sent: message.date_created)
   end
-end
+ end
