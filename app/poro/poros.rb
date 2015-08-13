@@ -20,7 +20,7 @@ class MessageHandler
   end
 
   def post_to_api(message)
-    json = message.to_json
-    HTTParty.post('https://dry-badlands-4527.herokuapp.com/v1/messages', json) if Rails.env.production?
+    json = message.as_json
+    HTTParty.post('https://dry-badlands-4527.herokuapp.com/v1/messages', json.to_h) if Rails.env.production?
   end
 end
