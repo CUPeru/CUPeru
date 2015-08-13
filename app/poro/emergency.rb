@@ -1,5 +1,7 @@
 class Emergency
-  def initizalize(message)
+  attr_reader :message
+
+  def initialize(message)
     @message = message
   end
 end
