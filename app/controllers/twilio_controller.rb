@@ -10,9 +10,8 @@ class TwilioController < ApplicationController
 
   def text
     MessageHandler.new.route_message(your_message)
-    final = "You just sent: #{your_message.body}, and your phone number is: #{your_message.from}"
     response = Twilio::TwiML::Response.new do |r|
-      r.Message final
+      r.Message "You just sent: #{your_message.body}, and your phone number is: #{your_message.from}"
     end
     render_twiml response
   end
@@ -38,15 +37,3 @@ class TwilioController < ApplicationController
     @account = @client.account
   end
 end
-
-    # TODO:
-    # also - only me, michael, allison, and CUPeru can login through twitter
-    # web scraping sypmtoms
-    #
-    # OPTIIONAL:
-    # change login to admin login
-    # add more info on homepage
-    # translate all outgoing texts to spanish
-    # d3 graph of texts
-    # calculate total twilio cost and show balance
-    # autoforwarding
