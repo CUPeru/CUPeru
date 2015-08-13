@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
   def find_healthcare_worker(message)
     case message.messageable_type
     when "Agent"
-      agent_path(Agent.find(message.messageable_id))
+      (Agent.find(message.messageable_id))
     when "Tecnico"
-      tecnico_path(Tecnico.find(message.messageable_id))
+      (Tecnico.find(message.messageable_id))
     end
   end
 end
