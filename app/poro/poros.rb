@@ -1,6 +1,6 @@
 require_relative 'sms_registration'
 require_relative 'parser'
-require 'net/http'
+require 'httparty'
 
 class MessageHandler
   def route_message(message)
@@ -20,8 +20,7 @@ class MessageHandler
   end
 
   def post_to_api(message)
-    json = message.as_json
-    my_connection = Net::HTTP.new('https://dry-badlands-4527.herokuapp.com')
-    reponse = my_connection.post('/v1/messages', json) if Rails.env.production?
+    json = message.to_json
+    HTTParty.post('https://dry-badlands-4527.herokuapp.com/v1/messages', json) if Rails.env.production?
   end
 end
