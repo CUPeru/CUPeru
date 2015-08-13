@@ -22,10 +22,15 @@ describe TwilioController do
     it 'correctly finds healthcare workers' do
       number = rand(10000000000..9999999999).to_s
       agent = Agent.create!(phone_number: rand)
-      message = Message.create(messageable_type: Agent, messageable_id: agent.id)
-      found_agent = TwilioController.new.find_healthcare_worker(message)
+      tecnico = Tecnico.create!(phone_number: rand)
+      a_message = Message.create(messageable_type: Agent, messageable_id: agent.id)
+      t_message = Message.create(messageable_type: Tecnico, messageable_id: tecnico.id)
+
+      found_agent = TwilioController.new.find_healthcare_worker(a_message)
+      found_tecnico = TwilioController.new.find_healthcare_worker(t_message)
 
       expect(found_agent).to eq(agent)
+      expect(found_tecnico).to eq(tecnico)
     end
   end
 end
