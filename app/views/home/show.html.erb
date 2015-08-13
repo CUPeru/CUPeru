@@ -1,16 +1,6 @@
-<html>
-  <head>
-    <link rel="stylesheet" href="assets/bootstrap.min.css" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="assets/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/animate.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/creative.css" type="text/css">
-  </head>
-
-  <body id="page-top">
-
-<%= render partial: "/partials/navbar" %>
+<body id="page-top">
+  <% cache do %>
+    <%= render partial: "/partials/navbar" %>
 
     <header>
       <div class="header-content">
@@ -74,12 +64,12 @@
         </div>
       </div>
     </section>
+  <% end %>
+</body>
 
-    <script src="assets/jquery.js"></script>
-    <script src="assets/bootstrap.min.js"></script>
-    <script src="assets/jquery.easing.min.js"></script>
-    <script src="assets/jquery.fittext.js"></script>
-    <script src="assets/wow.min.js"></script>
-    <script src="assets/creative.js"></script>
-  </body>
-</html>
+  <script src="assets/jquery.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+  <script src="assets/jquery.easing.min.js"></script>
+  <script src="assets/jquery.fittext.js"></script>
+  <script src="assets/wow.min.js"></script>
+  <script src="assets/creative.js"></script>
