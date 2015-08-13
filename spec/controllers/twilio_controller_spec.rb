@@ -9,7 +9,7 @@ describe TwilioController do
       message = agent.messages.create(body: 'I am a sample text', to: '+15555555555', from: '+15555555555', date_sent: "Thu, 06 Aug 2015 16:13:31 +0000")
       xml_type = "<Message>"
 
-      post :text, format: :xml, message: message.body
+      post :text, format: :xml
 
       expect(response).to have_http_status(:ok)
       expect(Message.count).to eq(2)
