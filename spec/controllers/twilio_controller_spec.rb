@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe TwilioController do
-  context'#text' do
+  context '#text' do
     it 'renders the valid twiml' do
       health_post = HealthPost.create
       health_post.update_attributes(code: "9599")
@@ -15,6 +15,17 @@ describe TwilioController do
       expect(Message.count).to eq(2)
       expect(Message.first.body).to eq("I am a sample text")
       expect(response.body.include?(xml_type)).to be(true)
+    end
+  end
+
+  context 'helper' do
+    it 'correctly finds healthcare workers' do
+      number = rand(10000000000..9999999999).to_s
+      agent = Agent.create!(phone_number: rand)
+      message = Message.create(messageable_type: Agent, messageable_id: agent.id)
+      found_agent = TwilioController.new.find_healthcare_worker(message)
+
+      expect(found_agent).to eq(agent)
     end
   end
 end
