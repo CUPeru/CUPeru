@@ -1,0 +1,42 @@
+# Superclass. Each subclass implements a #tokens method that returns a hash of
+# token key to content.
+#
+class Action
+  LIST = {
+    register: "RegisterAction",
+    broadcast: "NullAction",
+    auto: "NullAction",
+    fw: "NullAction",
+    help: "HelpAction",
+    info: "NullAction"
+  }
+
+  attr_reader :message, :from, :tokens
+
+  @queue = :actions
+
+  # Public. Convenience method for the action list.
+  def self.list
+    LIST
+  end
+
+  def initialize(message)
+    @message = message
+    @from    = message.from
+    @tokens  = parse_tokens
+  end
+
+  private
+
+  def parse_tokens
+    # No op. But here's an example of how it might work:
+    # {
+    #   type: lexed_tokens[0],
+    #   rest: lexed_tokens[1..-1]
+    # }
+  end
+
+  def lexed_tokens
+    message.body.downcase.split(" ")
+  end
+end

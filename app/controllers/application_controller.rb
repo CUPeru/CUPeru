@@ -14,4 +14,5 @@ class ApplicationController < ActionController::Base
       (Tecnico.find(message.messageable_id))
     end
   end
+
 end

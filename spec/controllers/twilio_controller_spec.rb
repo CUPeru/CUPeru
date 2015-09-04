@@ -1,37 +1,31 @@
 require 'rails_helper'
 
 describe TwilioController do
-  context '#text' do
-    it 'renders the valid twiml' do
-      health_post = HealthPost.create
-      health_post.update_attributes(code: "9599")
-      agent = Agent.create(health_post_id: health_post.id)
-      message = agent.messages.create(body: 'I am a sample text', to: '+15555555555', from: '+15555555555', date_sent: "Thu, 06 Aug 2015 16:13:31 +0000")
-      xml_type = "<Message>"
+  let(:sender)         { '+14444444444' }
+  let(:app_phone)      { ENV['twilio_phone_number'] }
+  let(:body)           { "hi" }
+  let(:message_params) { { to: app_phone, from: sender, body: body } }
 
-      post :text, format: :xml
+  let(:dispatcher) { double('dispatcher').as_null_object }
 
-      expect(response).to have_http_status(:ok)
-      expect(Message.count).to eq(2)
-      expect(Message.first.body).to eq("I am a sample text")
-      expect(response.body.include?(xml_type)).to be(true)
+  before { stub_const("Dispatcher", dispatcher) }
+
+  describe 'POST create' do
+    it 'creates a message' do
+      allow(Message).to receive(:create)
+      post :create, message_params, format: :json
+      expect(Message).to have_received(:create).with(message_params)
     end
-  end
 
-  context 'helper' do
-    it 'correctly finds healthcare workers' do
-      number = rand(10000000000..9999999999).to_s
-      agent = Agent.create!(phone_number: rand)
-      tecnico = Tecnico.create!(phone_number: rand)
-      a_message = Message.create(messageable_type: Agent, messageable_id: agent.id)
-      t_message = Message.create(messageable_type: Tecnico, messageable_id: tecnico.id)
+    it 'dispatches the message' do
+      allow(dispatcher).to receive(:route)
+      post :create, message_params, format: :json
+      expect(dispatcher).to have_received(:route)
+    end
 
-      found_agent = TwilioController.new.find_healthcare_worker(a_message)
-      found_tecnico = TwilioController.new.find_healthcare_worker(t_message)
-
-      expect(found_agent).to eq(agent)
-      expect(found_tecnico).to eq(tecnico)
+    it 'has a status of created' do
+      post :create, message_params, format: :json
+      expect(response.status).to eq(201)
     end
   end
 end
-

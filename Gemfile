@@ -3,9 +3,11 @@ ruby "2.2.2"
 
 gem "omniauth-twitter"
 
-gem 'twilio-ruby'
+gem 'twilio-ruby', '~> 4.3'
 gem 'rails', '4.2.1'
 gem 'pg'
+gem 'foreman'
+
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -13,22 +15,29 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem "rails_12factor"
 gem 'figaro'
 gem "skylight"
 gem "twitter-bootstrap-rails"
 gem 'httparty'
+gem "decent_exposure", "~> 2.3"
+gem "deterministic"
+
+group :production do
+  gem "rails_12factor"
+end
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'launchy'
-  gem 'byebug'
+  gem 'awesome_print'
   gem 'better_errors'
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
-  gem 'pry'
-  gem 'simplecov'
+  gem 'byebug'
+  gem 'capybara'
   gem 'database_cleaner'
+  gem 'launchy'
+  gem 'pry'
+  gem 'rspec-rails'
+  gem 'simplecov'
+  gem 'spring'
+  gem 'thin'
+  gem 'web-console', '~> 2.0'
 end
 

@@ -1,0 +1,1 @@
+class InvalidRegistrationError < StandardError; end
