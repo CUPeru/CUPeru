@@ -26,7 +26,18 @@ class Action
     @tokens  = parse_tokens
   end
 
+  def type
+    tokens.fetch(:type, nil)
+  end
+
   private
+
+  def reply(reply_message)
+    TwilioClient.send_text(
+      to: message.from,
+      from: ENV['twilio_phone_number'],
+      body: reply_message)
+  end
 
   def parse_tokens
     # No op. But here's an example of how it might work:

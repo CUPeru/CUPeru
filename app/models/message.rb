@@ -1,6 +1,35 @@
-require 'deterministic/maybe'
+# == Schema Information
+#
+# Table name: messages
+#
+#  id               :integer          not null, primary key
+#  body             :string
+#  to               :string
+#  from             :string
+#  date_sent        :string
+#  keyword          :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  messageable_id   :integer
+#  messageable_type :string
+#
 
 class Message < ActiveRecord::Base
+  scope :recent,   -> { order(:created_at).last(100).reverse }
+  scope :incoming, -> { where(to: ENV['twilio_phone_number']) }
+  scope :outgoing, -> { where(from: ENV['twilio_phone_number']) }
+
+  scope :emergencies, -> { select(&:emergency?) }
+  scope :broadcasts,  -> { select(&:broadcast?) }
+
+  #Public. Presents a hash of stats.
+  def self.stats
+    {
+      total:       all.count,
+      emergencies: emergencies.count,
+      broadcasts:  broadcasts.count
+    }
+  end
 
   # Public. Returns an array of symbolized tags found in the message body.
   def tags
@@ -22,9 +51,34 @@ class Message < ActiveRecord::Base
     }
   end
 
+  # Public. Returns true if the body parses for an emergency.
+  def emergency?
+    tags.include?(:emergency)
+  end
+
+  # TODO: Implement when the class exists.
+  # Public. Returns true if the action is a broadcast.
+  def broadcast?
+    false
+    # action.is_a?(BroadcastAction)
+  end
+
+  # Public. Renders a hash ready for the CSV exporter.
+  def to_row
+    MessageCSVPresenter.new(self).to_row
+  end
+
   # Public. Returns true if the symbolized first word is in the Action register.
   def has_action?
     Action.list.keys.include?(first_word)
+  end
+
+  #Public. returns the short name of the sender if found. Otherwise, returns an
+  #empty string.
+  def sender_short_name
+    return 'CUPeru' if self.from == ENV['twilio_phone_number']
+    result = Sender.find_by_phone_number(self.from)
+    result.present? ? result.name : ""
   end
 
   private

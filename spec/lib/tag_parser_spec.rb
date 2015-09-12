@@ -13,10 +13,10 @@ describe TagParser do
     end
 
     context 'when the message contains multiple keywords' do
-      let(:body) { "emergency broadcast No estoy aqui" }
+      let(:body) { "emergency symptom No estoy aqui" }
 
       it 'returns the keywords wrapped in an array' do
-        expect(subject.run(message)).to eq([:emergency, :broadcast])
+        expect(subject.run(message)).to eq([:emergency, :symptom])
       end
     end
 

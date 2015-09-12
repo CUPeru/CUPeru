@@ -6,11 +6,12 @@ class TwilioController < ApplicationController
 
   def create
     message = Message.create(
-                from: params[:from],
+                from: ENV['twilio_phone_number'],
                 to:   params[:to],
                 body: params[:body])
-    Dispatcher.route(message)
+    TwilioClient.send_text(message.to_text)
 
-    render json: message, status: 201
+    flash[:notice] = "Message sent to #{message.to}!"
+    redirect_to dashboard_path
   end
 end

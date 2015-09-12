@@ -2,7 +2,7 @@ module TwilioClient
   extend self
 
   def send_text(params)
-    messages.create(params)
+    messages.create(params) if Rails.env == 'production'
   end
 
   def messages

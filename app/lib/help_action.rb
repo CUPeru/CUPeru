@@ -9,10 +9,7 @@ class HelpAction < Action
   }
 
   def perform
-    TwilioClient.send_text(
-      to: message.from,
-      from: ENV['twilio_phone_number'],
-      body: help_message)
+    reply(help_message)
   end
 
   private

@@ -12,20 +12,34 @@ class RegisterAction < Action
   }
 
   def perform
-    tokens[:sender_class].create(name: tokens[:username], phone_number: from)
+    if valid?
+      tokens[:sender_class].create(name: tokens[:username], phone_number: from)
+      reply(confirmation_message)
+    else
+      # TODO: (dysnomian) Use a translation file instead.
+      reply(HelpAction.new(message).send(:general_help))
+    end
+  end
+
+  def valid?
+    tokens[:username] && tokens[:sender_class] != NullSender
   end
 
   private
+
+  def confirmation_message
+    "You are now registered as #{tokens[:username]}."
+  end
 
   def parse_tokens
     {
       type: lexed_tokens[0],
       sender_class: sender_class_token_to_class(lexed_tokens[1]),
-      username: lexed_tokens[2]
+      username: lexed_tokens.fetch(2, nil)
     }
   end
 
   def sender_class_token_to_class(token)
-    SENDER_CLASSES.fetch(token.to_sym, NullSender)
+    SENDER_CLASSES.fetch(token.try(:to_sym), NullSender)
   end
 end

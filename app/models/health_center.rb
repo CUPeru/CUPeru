@@ -1,6 +1,18 @@
-class HealthCenter < ActiveRecord::Base
-  has_many :health_posts
+# == Schema Information
+#
+# Table name: health_centers
+#
+#  id           :integer          not null, primary key
+#  phone_number :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  code         :string
+#
 
+class HealthCenter < ActiveRecord::Base
+  include SendsMessages
+
+  has_many     :health_posts
   after_create :set_random_code
 
   def set_random_code

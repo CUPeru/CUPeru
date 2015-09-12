@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   root to: 'home#show'
 
   get  '/dashboard',             to: 'dashboard#show'
-  post 'twilio/voice',           to: 'twilio#voice'
+  get  '/export_all',            to: 'dashboard#export_all'
   post '/twilio/create',         to: 'twilio#create'
-  post 'twilio/send_text',       to: 'twilio#send_text'
   get  '/logout',                to: 'sessions#destroy'
   get  '/auth/twitter/callback', to: 'sessions#create'
   get  '/agents/:id',            to: 'agents#show',     as: 'agent'

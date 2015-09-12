@@ -1,9 +1,19 @@
-class Tecnico < ActiveRecord::Base
-  belongs_to :health_post
-  has_many :messages, as: :messageable
-  validates_uniqueness_of :phone_number
+# == Schema Information
+#
+# Table name: tecnicos
+#
+#  id             :integer          not null, primary key
+#  phone_number   :string
+#  health_post_id :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  name           :string
+#
 
-  def self.messages
-    all.map(&:messages)
-  end
+class Tecnico < ActiveRecord::Base
+  include SendsMessages
+
+  belongs_to :health_post
+  has_many :messages
+  validates_uniqueness_of :phone_number
 end

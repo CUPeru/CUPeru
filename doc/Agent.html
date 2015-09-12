@@ -92,98 +92,60 @@
     
   
     
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="SendsMessages.html" title="SendsMessages (module)">SendsMessages</a></span></dd>
+      
+    
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">app/models/agent.rb</dd>
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">app/models/agent.rb</dd>
   
 </dl>
 <div class="clear"></div>
 
-
-
-
-
-
-
-
-  
-    <h2>
-      Class Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
     
-      <a href="#messages-class_method" title="messages (class method)">+ (Object) <strong>messages</strong> </a>
-    
+<h2 id="label-Schema+Information">Schema Information</h2>
 
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
+<p>Table name: agents</p>
 
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-    </ul>
-  
+<pre class="code ruby"><code class="ruby">id             :integer          not null, primary key
+phone_number   :string
+health_post_id :integer
+created_at     :datetime         not null
+updated_at     :datetime         not null
+name           :string</code></pre>
 
 
-  
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="messages-class_method">
-  
-    + (<tt>Object</tt>) <strong>messages</strong> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-6
-7
-8</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app/models/agent.rb', line 6</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span>
-  <span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:messages</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
 
 </div>
 
     <div id="footer">
-  Generated on Tue Sep  8 11:47:07 2015 by
+  Generated on Mon Sep 14 22:55:24 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.2).
 </div>

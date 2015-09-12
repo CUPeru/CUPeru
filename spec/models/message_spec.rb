@@ -1,9 +1,23 @@
+# == Schema Information
+#
+# Table name: messages
+#
+#  id               :integer          not null, primary key
+#  body             :string
+#  to               :string
+#  from             :string
+#  date_sent        :string
+#  keyword          :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  messageable_id   :integer
+#  messageable_type :string
+#
+
 require 'rails_helper'
 
 describe Message do
-  subject         { Message.new(from: sender, to: recipient, body: body) }
-  let(:sender)    { "+14444444444" }
-  let(:recipient) { "+15555555555" }
+  subject { create(:incoming_message) }
 
   describe '#tags' do
     it 'calls the TagParser with itself' do
@@ -15,7 +29,7 @@ describe Message do
 
   describe '#action' do
     context 'when the message is a recognizeable action' do
-      let(:body) { "Register agent roberto" }
+      subject { create(:incoming_message, :register) }
 
       it 'returns an instance of the Action' do
         expect(subject.action).to be_a(RegisterAction)
@@ -27,24 +41,6 @@ describe Message do
 
       it 'returns an instance of NullAction' do
         expect(subject.action).to be_a(NullAction)
-      end
-    end
-  end
-
-  describe '#has_action?' do
-    context 'when the message has a recognizeable action' do
-      let(:body) { "Register agent roberto" }
-
-      it 'is true' do
-        expect(subject.has_action?).to be_truthy
-      end
-    end
-
-    context 'when the message does not have recognizeable action' do
-      let(:body) { "hey y'all" }
-
-      it 'is false' do
-        expect(subject.has_action?).to be_falsey
       end
     end
   end

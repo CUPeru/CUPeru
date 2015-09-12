@@ -21,6 +21,7 @@ gem "twitter-bootstrap-rails"
 gem 'httparty'
 gem "decent_exposure", "~> 2.3"
 gem "deterministic"
+gem 'puma'
 
 group :production do
   gem "rails_12factor"
@@ -28,16 +29,18 @@ end
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'annotate'
   gem 'better_errors'
   gem 'byebug'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'factory_girl_rails', '~> 4.5'
+  gem 'faker'
   gem 'launchy'
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'spring'
-  gem 'thin'
   gem 'web-console', '~> 2.0'
 end
 
