@@ -1,5 +1,6 @@
-require 'deterministic/maybe'
-
+# TODO: (dysnomian) This is a transitional module to help move away from
+# specific classes for different sender types and converge on a single class
+# with a `role` field.
 module Sender
   SENDER_TYPES = [Agent, Tecnico, HealthPost, HealthCenter]
 

@@ -2,6 +2,9 @@
 # token key to content.
 #
 class Action
+  # TODO: (dysnomian) Each of these actions need to be implemented. The Register
+  # action is the role model at the moment. The Action superclass contains core
+  # functionality for the actions.
   LIST = {
     register: "RegisterAction",
     broadcast: "NullAction",

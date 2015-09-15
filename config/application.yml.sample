@@ -1,2 +1,5 @@
-DATABASE_URL: 'localhost:3000'
-CUPERU_DATABASE_PASSWORD: ''
+twitter_consumer_key: 'consumerkeystring'
+twitter_consumer_secret: 'secretstring'
+twilio_account_sid: 'accountsidstring'
+twilio_auth_token: 'tokenstring'
+twilio_phone_number: '+15554443333'
