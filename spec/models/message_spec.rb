@@ -12,6 +12,8 @@
 #  updated_at       :datetime         not null
 #  messageable_id   :integer
 #  messageable_type :string
+#  status           :string
+#  twilio_sid       :string
 #
 
 require 'rails_helper'

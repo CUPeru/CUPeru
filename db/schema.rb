@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812160348) do
+ActiveRecord::Schema.define(version: 20150915190120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20150812160348) do
     t.datetime "updated_at",       null: false
     t.integer  "messageable_id"
     t.string   "messageable_type"
+    t.string   "status"
+    t.string   "twilio_sid"
   end
 
   create_table "tecnicos", force: :cascade do |t|

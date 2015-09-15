@@ -7,6 +7,8 @@ gem 'twilio-ruby', '~> 4.3'
 gem 'rails', '4.2.1'
 gem 'pg'
 gem 'foreman'
+gem 'resque'
+gem 'resque-scheduler'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -15,12 +17,9 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'figaro'
-gem "skylight"
 gem "twitter-bootstrap-rails"
-gem 'httparty'
-gem "decent_exposure", "~> 2.3"
-gem "deterministic"
+
+gem 'figaro'
 gem 'puma'
 
 group :production do

@@ -12,9 +12,13 @@
 #  updated_at       :datetime         not null
 #  messageable_id   :integer
 #  messageable_type :string
+#  status           :string
+#  twilio_sid       :string
 #
 
 class Message < ActiveRecord::Base
+  validates_uniqueness_of :twilio_sid
+
   scope :recent,   -> { order(:created_at).last(100).reverse }
   scope :incoming, -> { where(to: ENV['twilio_phone_number']) }
   scope :outgoing, -> { where(from: ENV['twilio_phone_number']) }
