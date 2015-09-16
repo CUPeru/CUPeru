@@ -6,12 +6,7 @@ module TwilioClient
   end
 
   def fetch_incoming_messages
-    incoming_messages.each do |t_message|
-      unless Message.exists?(twilio_sid: t_message.sid)
-        message = create_message_from(t_message)
-        Dispatcher.route(message)
-      end
-    end
+    incoming_messages.each { |inc_message| create_and_route(inc_message) }
   end
 
   private
@@ -32,12 +27,20 @@ module TwilioClient
     end
   end
 
+  # TODO: (dysnomian) Move to Message class?
   def create_message_from(twilio_message)
     Message.create(
-          twilio_sid: twilio_message.sid,
-          to:         twilio_message.to,
-          from:       twilio_message.from,
-          body:       twilio_message.body,
-          status:     twilio_message.status)
+      twilio_sid: twilio_message.sid,
+      to:         twilio_message.to,
+      from:       twilio_message.from,
+      body:       twilio_message.body,
+      status:     twilio_message.status)
+  end
+
+  def create_and_route(twilio_message)
+    unless Message.exists?(twilio_sid: twilio_message.sid)
+      message = create_message_from(twilio_message)
+      Dispatcher.route(message)
+    end
   end
 end

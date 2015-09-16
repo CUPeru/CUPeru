@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe Exporter do
+  before { Timecop.freeze(Time.new(2014, 12, 5, 8, 30)) }
+  after  { Timecop.return }
+
   describe '.message_data' do
     subject { Exporter.new(scope).message_data }
 
@@ -8,13 +11,9 @@ describe Exporter do
     let(:outgoing) { create(:outgoing_message) }
 
     before do
-      Timecop.freeze(Time.now)
       incoming
       outgoing
     end
-
-    after  { Timecop.return }
-
 
     context 'when the scope is undefined' do
       let(:scope) { nil }
