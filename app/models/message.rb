@@ -26,6 +26,8 @@ class Message < ActiveRecord::Base
   scope :emergencies, -> { select(&:emergency?) }
   scope :broadcasts,  -> { select(&:broadcast?) }
 
+  alias_attribute :sid, :twilio_sid
+
   #Public. Presents a hash of stats.
   def self.stats
     {

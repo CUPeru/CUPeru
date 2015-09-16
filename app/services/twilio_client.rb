@@ -22,9 +22,7 @@ module TwilioClient
   end
 
   def incoming_messages
-    messages.list({ }).select do |twilio_message|
-      twilio_message.to == ENV['twilio_phone_number']
-    end
+    messages.list(to: ENV['twilio_phone_number'])
   end
 
   # TODO: (dysnomian) Move to Message class?
