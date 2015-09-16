@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Exporter do
   describe '.message_data' do
-    subject { Exporter.message_data(scope) }
+    subject { Exporter.new(scope).message_data }
 
     let(:incoming) { create(:incoming_message) }
     let(:outgoing) { create(:outgoing_message) }
@@ -36,33 +36,4 @@ describe Exporter do
       end
     end
   end
-
-  describe '.all_messages' do
-    subject { Exporter.run }
-
-    let(:incoming)     { create(:incoming_message) }
-    let(:outgoing)     { create(:outgoing_message) }
-    let(:registration) { create(:incoming_message, :register) }
-
-    before do
-      incoming
-      outgoing
-      registration
-    end
-
-    let(:csv_output) do
-      "sender,recipient,body,tags,action,date\n" +
-        message_to_string(incoming) +
-        message_to_string(outgoing) +
-        message_to_string(registration)
-    end
-
-    it 'renders a CSV of all messages' do
-      expect(File.read(subject)).to eq(csv_output)
-    end
-  end
-end
-
-def message_to_string(message)
-  message.to_row.join(",") + "\n"
 end
