@@ -1,8 +1,13 @@
+require 'digest/sha1'
+
 FactoryGirl.define do
   factory :message do
-      from { Faker::Number.number(10) }
-      to   { Faker::Number.number(10) }
-      body { Faker::Lorem.sentence(1) }
+      from       { Faker::Number.number(10) }
+      to         { Faker::Number.number(10) }
+      body       { Faker::Lorem.sentence(1) }
+      status     { 'delivered' }
+      twilio_sid { Digest::SHA1.hexdigest Time.now.to_s.concat(body) }
+
 
     factory :incoming_message do
       to   { ENV['twilio_phone_number'] }

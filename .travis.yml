@@ -3,3 +3,5 @@ rvm:
 - 2.2.2
 services:
   - redis-server
+env:
+  - REDIS_URL=localhost:6379
