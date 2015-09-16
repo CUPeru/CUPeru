@@ -9,9 +9,14 @@ class TwilioController < ApplicationController
                 from: ENV['twilio_phone_number'],
                 to:   params[:to],
                 body: params[:body])
-    TwilioClient.send_text(message.to_text)
+    if message
+      TwilioClient.send_text(message.to_text)
 
-    flash[:notice] = "Message sent to #{message.to}!"
-    redirect_to dashboard_path
+      flash[:notice] = "Message sent to #{message.to}!"
+      redirect_to dashboard_path
+    else
+      flash[:notice] = "There was an error sending your message."
+      redirect_to dashboard_path
+    end
   end
 end

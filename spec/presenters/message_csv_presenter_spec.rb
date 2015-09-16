@@ -18,7 +18,7 @@ describe MessageCSVPresenter do
 
       let(:result) do
         ['15554443333', '18887776666', body,
-         '', '', date]
+         nil, nil, date]
       end
 
       it 'returns the expected array' do
@@ -31,7 +31,7 @@ describe MessageCSVPresenter do
 
       let(:result) do
         ['15554443333', '18887776666', body,
-         'emergency', '', date]
+         'emergency', nil, date]
       end
 
       it 'returns the expected array' do
@@ -45,7 +45,7 @@ describe MessageCSVPresenter do
 
       let(:result) do
         ['15554443333', '18887776666', body,
-         'emergency symptom', '', date]
+         'emergency symptom', nil, date]
       end
 
       it 'returns the expected array' do
@@ -59,7 +59,7 @@ describe MessageCSVPresenter do
 
       let(:result) do
         ['15554443333', '18887776666', body,
-         '', 'register', date]
+         nil, 'register', date]
       end
 
       it 'returns the expected array' do

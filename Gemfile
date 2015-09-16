@@ -43,3 +43,6 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 end
 
+group :test do
+  gem 'timecop'
+end

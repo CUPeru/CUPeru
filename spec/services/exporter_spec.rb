@@ -8,9 +8,13 @@ describe Exporter do
     let(:outgoing) { create(:outgoing_message) }
 
     before do
+      Timecop.freeze(Time.now)
       incoming
       outgoing
     end
+
+    after  { Timecop.return }
+
 
     context 'when the scope is undefined' do
       let(:scope) { nil }

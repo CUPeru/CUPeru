@@ -1,7 +1,13 @@
 require 'factory_girl'
+require './spec/helpers/omniauth_helper'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include OmniAuthHelper
+
+  config.before(:all) do
+    stub_omniauth
+  end
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -13,22 +19,4 @@ RSpec.configure do |config|
 
   config.order = :random
   Kernel.srand config.seed
-end
-
-def stub_omniauth
-  OmniAuth.config.test_mode = true
-  OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
-    provider: 'twitter',
-    extra: {
-      raw_info: {
-        user_id: "1234",
-        name: "Horace",
-        screen_name: "worace",
-      }
-    },
-    credentials: {
-      token: "pizza",
-      secret: "secretpizza"
-    }
-  })
 end
