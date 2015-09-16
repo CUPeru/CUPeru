@@ -5,3 +5,11 @@ services:
   - redis-server
 env:
   - REDIS_URL=localhost:6379
+addons:
+  postgresql: "9.3"
+test:
+  adapter: postgresql
+  database: cuperu_test
+  username: postgres
+before_script:
+  - psql -c 'create database cuperu_test;' -U postgres
