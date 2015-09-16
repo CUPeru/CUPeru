@@ -1,5 +1,5 @@
-CUPeru
-======
+#CUPeru
+[![Build Status](https://secure.travis-ci.org/cuperu/cuperu.png)](http://travis-ci.org/cuperu/cuperu)
 
 A SMS-based group communication app to coordinate medical efforts for
 [Comunidades Unidas Peru].
