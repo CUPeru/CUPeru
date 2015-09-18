@@ -1,7 +1,0 @@
-fetch_incoming_messages:
-  every:
-    - "5s"
-    - :first_in: '5s'
-  class: "IncomingMessagesWorker"
-  queue: twilio
-  description: "Checks the TwilioClient for new messages every 5 seconds"

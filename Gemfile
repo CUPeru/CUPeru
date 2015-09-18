@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
-ruby "2.2.2"
+ruby '2.2.2'
 
-gem "omniauth-twitter"
+gem 'omniauth-twitter'
 
 gem 'twilio-ruby', '~> 4.3'
 gem 'rails', '4.2.1'
 gem 'pg'
 gem 'foreman'
-gem 'resque'
-gem 'resque-scheduler'
+gem 'sidekiq'
+gem 'sidetiq'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -17,13 +17,15 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
 
 gem 'figaro'
 gem 'puma'
+gem 'coveralls', require: false
+gem 'whenever',  require: false
 
 group :production do
-  gem "rails_12factor"
+  gem 'rails_12factor'
 end
 
 group :development, :test do
@@ -38,6 +40,7 @@ group :development, :test do
   gem 'launchy'
   gem 'pry'
   gem 'rspec-rails'
+  gem 'rubocop', require: false
   gem 'simplecov'
   gem 'spring'
   gem 'web-console', '~> 2.0'
@@ -45,4 +48,5 @@ end
 
 group :test do
   gem 'timecop'
+  gem 'rspec-sidekiq'
 end

@@ -1,5 +1,8 @@
 require 'factory_girl'
 require './spec/helpers/omniauth_helper'
+require 'coveralls'
+
+Coveralls.wear!
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

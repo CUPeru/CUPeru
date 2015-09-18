@@ -1,5 +1,5 @@
 #CUPeru
-[![Build Status](https://secure.travis-ci.org/cuperu/cuperu.png)](http://travis-ci.org/cuperu/cuperu)
+[![Build Status](https://travis-ci.org/CUPeru/CUPeru.svg?branch=master)](https://travis-ci.org/CUPeru/CUPeru)[![Coverage Status](https://coveralls.io/repos/CUPeru/CUPeru/badge.svg?branch=master&service=github)](https://coveralls.io/github/CUPeru/CUPeru?branch=master)
 
 A SMS-based group communication app to coordinate medical efforts for
 [Comunidades Unidas Peru].
@@ -39,3 +39,27 @@ Deploying to Heroku
 
 [Heroku] setup requires the same configuration variables to be set as in the
 `application.yml` file. These can be set online or through `heroku config`.
+
+To Do
+-----
+
+- Fix automatic message retrieval
+- Write CONTRIBUTING.md
+- Localize messages
+- Shore up integration tests:
+  - User creation via SMS
+  - Sending messages via web interface
+- Style guide compliance
+- Add code of conduct
+- File issues
+- Unify sender models
+- Replace Twitter auth with a full Devise install (to screen viewers)
+- Rework front end:
+  - Refactor the dashboard
+  - Show live updates to messages
+  - React project?
+- New actions:
+  - Autoforwarding
+  - Autoreply
+  - Username messaging
+  - Broadcasts (to all users and to groups)
