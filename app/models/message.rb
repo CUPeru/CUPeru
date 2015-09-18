@@ -28,6 +28,22 @@ class Message < ActiveRecord::Base
 
   alias_attribute :sid, :twilio_sid
 
+  # Public. Given a Twilio::REST::Message, creates a local message and deletes
+  #   the message on the server on success unless given a second parameter of
+  #   false.
+  def self.create_from(twilio_message, delete = true)
+    message = self.create(
+      twilio_sid: twilio_message.sid,
+      to:         twilio_message.to,
+      from:       twilio_message.from,
+      body:       twilio_message.body,
+      status:     twilio_message.status)
+    if message
+      Dispatcher.route(message)
+      twilio_message.delete if delete
+    end
+  end
+
   #Public. Presents a hash of stats.
   def self.stats
     {
@@ -79,8 +95,8 @@ class Message < ActiveRecord::Base
     Action.list.keys.include?(first_word)
   end
 
-  #Public. returns the short name of the sender if found. Otherwise, returns an
-  #empty string.
+  # Public. returns the short name of the sender if found. Otherwise, returns an
+  #   empty string.
   def sender_short_name
     return 'CUPeru' if self.from == ENV['twilio_phone_number']
     result = Sender.find_by_phone_number(self.from)
@@ -95,7 +111,7 @@ class Message < ActiveRecord::Base
     Action.list.fetch(first_word).constantize if has_action?
   end
 
-
+  # Private. Returns the symbolized, downcased first word of a message's body.
   def first_word
     body.downcase.split(" ").first.to_sym
   end

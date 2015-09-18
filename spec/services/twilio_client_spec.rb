@@ -42,44 +42,49 @@ describe TwilioClient do
 
     before do
       allow(subject).to receive(:incoming_messages).and_return(fake_messages)
-      allow(Message).to receive(:create).and_call_original
+      allow(Message).to receive(:create_from).and_call_original
     end
 
     context 'when there is a new message on the server' do
-    let(:fake_messages) { [double('message', message_attributes)] }
+      let(:twilio_message) do
+        double('twilio_message', message_attributes).as_null_object
+      end
 
-    let(:message_attributes) do
-      {
-        sid: 1,
-        to: to,
-        from: '7',
-        body: 'hi',
-        status: 'delivered'
-      }
-    end
+      let(:fake_messages) { [twilio_message] }
 
-    let(:creation_attributes) do
-      {
-        twilio_sid: 1,
-        to: to,
-        from: '7',
-        body: 'hi',
-        status: 'delivered'
-      }
-    end
+      let(:message_attributes) do
+        {
+          sid: 1,
+          to: to,
+          from: '7',
+          body: 'hi',
+          status: 'delivered'
+        }
+      end
 
-    let(:to) { '7' }
+      let(:creation_attributes) do
+        {
+          twilio_sid: 1,
+          to: to,
+          from: '7',
+          body: 'hi',
+          status: 'delivered'
+        }
+      end
+
+      let(:to) { '7' }
+
+      before { allow twilio_message.to receive(:delete) }
+
       context 'when it is to the app' do
         it 'creates a message with the attributes' do
           subject.fetch_incoming_messages
-          expect(Message).to have_received(:create).with(creation_attributes)
+          expect(Message).to have_received(:create_from).with(twilio_message)
         end
-      end
-      context 'when it is to someone else' do
-        it 'ignores it' do
+
+        it 'deletes the remote copy' do
           subject.fetch_incoming_messages
-          subject.fetch_incoming_messages
-          expect(Message).to have_received(:create).once
+          expect(twilio_message).to have_received(:delete)
         end
       end
     end
