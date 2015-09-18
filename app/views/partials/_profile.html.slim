@@ -1,0 +1,27 @@
+br
+br
+br
+br
+.col-lg-6
+  h4
+    | Name: 
+    = healthcare_worker.name
+  br
+  br
+  h4
+    | Phone Number: 
+    = healthcare_worker.phone_number
+  br
+  br
+  h4
+    | Messages: 
+    = healthcare_worker.messages.count
+  br
+  br
+.col-lg-6
+  h4
+    | Stream
+  br
+  - healthcare_worker.messages.each do |message|
+    = message.body
+    = message.to

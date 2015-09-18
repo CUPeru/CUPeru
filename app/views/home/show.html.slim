@@ -1,0 +1,63 @@
+body#page-top
+  - cache do
+    = render partial: "/partials/navbar"
+    header
+      .header-content
+        .header-content-inner
+          h1
+            | The Cloud + The Jungle
+          hr
+          p
+            | Connecting rural healthcare workers in the Upper Napo river region of the Peruvian Amazon to the cloud.
+          a.btn.btn-primary.btn-xl.page-scroll[href="/auth/twitter"]
+            | Login
+    section#about.bg-primary
+      .container
+        .row
+          .col-lg-8.col-lg-offset-2.text-center
+            h2.section-heading
+              | We're here to help!
+            hr.light
+            p.text-faded
+              | Login to send emergency alerts, coordinate disaster relief, and plan vaccination campaigns.
+            a.btn.btn-default.btn-xl[href="#services"]
+              | Find Out More
+    section#services
+      .container
+        .row
+          .col-lg-12.text-center
+            h2.section-heading
+              | Services
+            hr.primary
+      .container
+        .row
+          .col-lg-3.col-md-6.text-center
+            .service-box
+              h3
+                | Emergency Broadcasts
+              p.text-muted
+                | Send emergency texts to 50,000 rural villagers, instantly.
+          .col-lg-3.col-md-6.text-center
+            .service-box
+              h3
+                | Nighttime Forwarding
+              p.text-muted
+                | Auto forward texts to on-call doctors
+          .col-lg-3.col-md-6.text-center
+            .service-box
+              h3
+                | Medical Information
+              p.text-muted
+                | Allow villagers to get disease diagnoses and prognoses.
+          .col-lg-3.col-md-6.text-center
+            .service-box
+              h3
+                | Data Collection
+              p.text-muted
+                | Measure the frequency and ways villagers use this platform.
+script[src="assets/jquery.js"]
+script[src="assets/bootstrap.min.js"]
+script[src="assets/jquery.easing.min.js"]
+script[src="assets/jquery.fittext.js"]
+script[src="assets/wow.min.js"]
+script[src="assets/creative.js"]

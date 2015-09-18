@@ -1,0 +1,17 @@
+nav#mainNav.navbar.navbar-default.navbar-fixed-top
+  .navbar-header
+    a.navbar-brand.page-scroll[href="/"]
+      | Comunidades Unidas Peru
+  ul.nav.navbar-nav.navbar-right
+    li
+      a.page-scroll[href="https://github.com/cuperu/cuperu"]
+        | GitHub
+    li
+      a.page-scroll[href="http://cuperu.org"]
+        | CUPeru
+    li
+      a.page-scroll[href="http://cuperu.org/contact"]
+        | Contact
+    - if current_user
+      li
+        = link_to 'Logout', logout_path
