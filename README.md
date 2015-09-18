@@ -40,6 +40,12 @@ Deploying to Heroku
 [Heroku] setup requires the same configuration variables to be set as in the
 `application.yml` file. These can be set online or through `heroku config`.
 
+Contributing
+------------
+
+Please note that this project is released with a Contributor Code of Conduct.
+By participating in this project you agree to abide by its terms.
+
 To Do
 -----
 
