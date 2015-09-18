@@ -6,7 +6,9 @@ module TwilioClient
   end
 
   def fetch_incoming_messages
-    incoming_messages.each { |t_message| Message.create_from(t_message) }
+    incoming_messages.each do |t_message|
+      Message.create_from(t_message)
+    end
   end
 
   private
