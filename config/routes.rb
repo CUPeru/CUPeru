@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'home#show'
+  resources :messages
 
   get  '/dashboard',             to: 'dashboard#show'
   get  '/export_all',            to: 'dashboard#export_all'
