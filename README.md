@@ -40,6 +40,8 @@ Deploying to Heroku
 [Heroku] setup requires the same configuration variables to be set as in the
 `application.yml` file. These can be set online or through `heroku config`.
 
+After initial deploy, run `heroku run rake db:schema:load` if login is failing.
+
 Contributing
 ------------
 
